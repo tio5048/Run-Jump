@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rank</title>
+</head>
+<body>
+    <h2>최고 점수: <span id="highscore">0</span></h2>
+
+    <script>
+        // 로컬 스토리지에서 코인과 점수 불러오기
+        document.getElementById('highscore').textContent = localStorage.getItem('highscore') || 0;
+    </script>
+</body>
+</html>
