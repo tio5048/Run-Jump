@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>스킨 선택</title>
+    <link rel="stylesheet" href="skin.css">
+    <style>
+        .disabled {
+            opacity: 0.5;
+            pointer-events: none; /* 클릭 비활성화 */
+        }
+    </style>
+</head>
+<body>
+
+<h1>캐릭터 스킨 선택</h1>
+<button id="defaultSkin">기본 캐릭터 스킨</button>
+<button id="ninjaSkin" class="disabled">닌자 스킨</button>
+<button id="studentSkin" class="disabled">학생 스킨</button>
+<button id="pikachuSkin" class="disabled">피카츄 스킨</button>
+
+<h1>장애물 스킨 선택</h1>
+<button id="defaultBarrier">기본 장애물 스킨</button>
+<button id="thornBarrier" class="disabled">가시 스킨</button>
+<button id="fireBarrier" class="disabled">불 스킨</button>
+<button id="stopeBarrier" class="disabled">표지판 스킨</button>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const purchasedItems = JSON.parse(localStorage.getItem('purchasedItems')) || {};
+
+    // 상품 이름 정의
+    const skinNames = {
+        defaultSkin: '기본 캐릭터 스킨',
+        ninja: '닌자',
+        character2: '학생',
+        character3: '피카츄',
+
+        defaultBarrier: '기본 장애물 스킨',
+        thorn: '가시발판',
+        barreier2: '불',
+        barreier3: '표지판'
+    };
+
+    // 캐릭터 스킨
+    document.getElementById('defaultSkin').onclick = () => selectSkin('image/black.png', skinNames.defaultSkin);
+
+    if (purchasedItems.character && purchasedItems.character.includes(1)) {
+        document.getElementById('ninjaSkin').classList.remove('disabled');
+        document.getElementById('ninjaSkin').onclick = () => selectSkin('image/ninja.png', skinNames.ninja);
+    }
+
+    if (purchasedItems.character && purchasedItems.character.includes(2)) {
+        document.getElementById('ninjaSkin').classList.remove('disabled');
+        document.getElementById('ninjaSkin').onclick = () => selectSkin('image/student.png', skinNames.character2);
+    }
+
+    if (purchasedItems.character && purchasedItems.character.includes(3)) {
+        document.getElementById('ninjaSkin').classList.remove('disabled');
+        document.getElementById('ninjaSkin').onclick = () => selectSkin('image/pikachu.png', skinNames.character3);
+    }
+
+    // 장애물 스킨
+    document.getElementById('defaultBarrier').onclick = () => selectBarrier('image/red.png', skinNames.defaultBarrier);
+
+    if (purchasedItems.barrier && purchasedItems.barrier.includes(1)) {
+        document.getElementById('thornBarrier').classList.remove('disabled');
+        document.getElementById('thornBarrier').onclick = () => selectBarrier('image/thorn.png', skinNames.thorn);
+    }
+
+    if (purchasedItems.barrier && purchasedItems.barrier.includes(2)) {
+        document.getElementById('thornBarrier').classList.remove('disabled');
+        document.getElementById('thornBarrier').onclick = () => selectBarrier('image/fire.png', skinNames.background2);
+    }
+
+    if (purchasedItems.barrier && purchasedItems.barrier.includes(3)) {
+        document.getElementById('thornBarrier').classList.remove('disabled');
+        document.getElementById('thornBarrier').onclick = () => selectBarrier('image/stop.png', skinNames.barreier3);
+    }
+});
+
+function selectSkin(skin, name) {
+    localStorage.setItem('characterSkin', skin); // 캐릭터 스킨 저장
+    alert(`${name}으로 설정되었습니다!`);
+}
+
+function selectBarrier(skin, name) {
+    localStorage.setItem('barrierSkin', skin); // 장애물 스킨 저장
+    alert(`${name}으로 설정되었습니다!`);
+}
+</script>
+
+</body>
+</html>
